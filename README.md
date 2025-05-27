@@ -1,11 +1,12 @@
-# Sisop-5-2025-IT-Template
+# Sisop-5-2025-IT28
 
 ## Kelompok
 
 Nama | NRP
 --- | ---
-Amoes Noland | 5027231028
-Rafi' Afnaan Fathurrahman | 5027231040
+Yuan Banny Albyan | 5027241027
+Ica Zika Hamizah | 5027241058
+Nafis Faqih Allmuzaky Maolidi | 5027241095
 
 ## Daftar Isi
 
