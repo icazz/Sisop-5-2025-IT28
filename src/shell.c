@@ -3,7 +3,10 @@
 #include "std_lib.h"
 
 #define DEFAULT_USERNAME "user"
-char current_color = 0x07; // default
+char merah  = 0x00C;
+char kuning = 0x00E;
+char biru   = 0x009;
+char current_color = 0x0007; // default
 
 static char username[64];
 static char company_title[32] = "";
@@ -62,24 +65,24 @@ void shell() {
         // Maelstrom: merah
         clearScreen(); // Clear screen
         strcpy(company_title, "@Storm");
-        current_color = 0x04; // merah
+        current_color = merah; // merah
       } else if (strcmp(arg[0], "twinadder")) {
         // Twin Adder: kuning
         clearScreen();
         strcpy(company_title, "@Serpent");
-        current_color = 0x06;  // Kuning
+        current_color = kuning;  // Kuning
       } else if (strcmp(arg[0], "immortalflames")) {
         // Immortal Flames: biru
         clearScreen();
         strcpy(company_title, "@Flame");
-        current_color = 0x01;  // Biru
+        current_color = biru;  // Biru
       } else {
         printString("Invalid Grand Company!\n");
       }
     } else if (strcmp(cmd, "clear")) {
       // Clear screen & reset warna + company
       clearScreen();
-      current_color = 0x07; // Kembali ke putih abu-abu
+      current_color = 0x0007; // Kembali ke putih abu-abu
       company_title[0] = '\0';
 
     } else if (strcmp(cmd, "add")) {
