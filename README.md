@@ -293,6 +293,20 @@ readString(buf);
    user> yogurt
    gurt> sygau
    ```
+di soal ini untuk fungsi random, kami menggunakan getBiosTick(fungsi waktu) dan di modulo agar hasilnya konstan (range nya)
+```c
+if (strcmp(cmd, "yogurt")) {
+      int tick = getBiosTick();
+      int idx;
+      idx = mod(tick, 3) + 1;
+        if (idx == 1) {
+            printString("yo\n");
+        } else if (idx == 2) {
+            printString("ts unami gng </3\n");
+        } else {
+            printString("sygau\n");
+        }
+```
 
 11. Perusahaan mesin "Garlond Ironworks" tiba-tiba lelah mengurus permintaan senjata perang untuk orang ke-148649813234 yang berusaha menghadapi final boss yang sama, sehingga mereka perlu bantuan kamu untuk melengkapi `Makefile` yang diberikan dengan command-command yang sesuai untuk compile seluruh operating system ini.
     makefile dibuat dengan komponen:
