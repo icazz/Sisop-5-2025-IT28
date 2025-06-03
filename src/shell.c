@@ -3,6 +3,7 @@
 #include "std_lib.h"
 
 #define DEFAULT_USERNAME "user"
+#define YOGURT_USERNAME "gurt"
 char merah  = 0x00C;
 char kuning = 0x00E;
 char biru   = 0x009;
@@ -37,6 +38,9 @@ void shell() {
       int tick = getBiosTick();
       int idx;
       idx = mod(tick, 3) + 1;
+      strcpy(username, YOGURT_USERNAME);
+      printString(username);
+      printString("> ");
         if (idx == 1) {
             printString("yo\n");
         } else if (idx == 2) {
@@ -44,6 +48,7 @@ void shell() {
         } else {
             printString("sygau\n");
         }
+        strcpy(username, DEFAULT_USERNAME);
     } else if (strcmp(cmd, "yo")) {
       printString("gurt\n");
     } else if (strcmp(cmd, "gurt")) {
