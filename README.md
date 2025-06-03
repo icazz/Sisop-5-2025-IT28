@@ -3,9 +3,9 @@
 ## Kelompok
 
 | Nama                          | NRP        |
-| ----------------------------- | ---------- |
-| Yuan Banny Albyan             | 5027241027 | (just give very little advice and make the readme)
-| Ica Zika Hamizah              | 5027241058 | (98% author of this repo)
+| ----------------------------- | ---------- | -------------------------------------------------- |
+| Yuan Banny Albyan             | 5027241027 | (just give very little advice and make the readme) |
+| Ica Zika Hamizah              | 5027241058 | (98% author of this repo)                          |
 | Nafis Faqih Allmuzaky Maolidi | 5027241095 |
 
 ## Daftar Isi
@@ -182,14 +182,17 @@ Pada suatu hari, anda merasa sangat lelah dari segala macam praktikum yang sudah
   - `link` : menggabungkan `bootloader.bin`, `kernel.o`, `kernel_asm.o`, dan `std_lib.o` menjadi `floppy.img`.
   - `build` : menjalankan perintah `prepare`, `bootloader`, `stdlib`, `kernel`, dan `link`.
 
-
 ## Video Demonstrasi
 
+[Akses Video dalam Assets](./assets/demo_IT28.mp4)
+
 ## Laporan
+
 Pada suatu hari, anda merasa sangat lelah dari segala macam praktikum yang sudah ada, sehingga anda berencana untuk tidur yang nyenyak di sebuah jam 3:34AM yang cerah. Tetapi, anda terbangun di dalam dunia berbeda yang bernama "Eorzea". Ada sesuatu yang mengganggu pikiran anda sehingga anda diharuskan membuat sebuah operating system bernama "EorzeOS" untuk mendampingi diri anda dalam dunia ini.
 
 Sebelum masuk ke soal utama, di sini ada beberapa fungsi yang didefinisikan di header file,
 di kernel.h:
+
 ```c
 extern void putInMemory(int segment, int address, char character);
 extern int interrupt(int number, int AX, int BX, int CX, int DX);
@@ -200,14 +203,18 @@ void printString(char* str); //untuk print ke layar terminal boch
 void readString(char* buf); //untuk menerima input dari terminal boch
 void clearScreen(void); //untuk menghapus semua tampilan di layar (agar rapih)
 ```
+
 di shell.h
+
 ```c
 extern char current_color;
 
 void shell(void); //menjadi jembatan agar bisa diakses di kernel.c
-void parseCommand(char *buf, char *cmd, char arg[2][64]); 
+void parseCommand(char *buf, char *cmd, char arg[2][64]);
 ```
+
 di std_lib.h
+
 ```c
 int div(int a, int b);
 int mod(int a, int b);
@@ -220,7 +227,9 @@ void atoi(char *str, int *num);
 void itoa(int num, char *str);
 untuk define function yang diperlukan (karna tidak bisa include library serupa (jadi didefine sendiri))
 ```
+
 di std_type.h
+
 ```c
 typedef unsigned char byte;
 
@@ -229,7 +238,6 @@ typedef char bool;
 #define false 0
 mirip dengan std_lib.h (hanya untuk fungsi utilitas)
 ```
-
 
 1. Sebagai seorang main character dari dunia ini, ternyata anda memiliki kekuatan yang bernama "The Echo", kekuatan ini memungkinkan anda untuk berbicara pada Operating System ini (mungkin sebenarnya bukan ini kekuatannya, tetapi ini cukup kuat juga), dengan tujuan agar semua hal yang anda katakan, bila bukan merupakan sebuah command yang valid, akan mengulang hal yang anda katakan.
 
@@ -241,7 +249,9 @@ mirip dengan std_lib.h (hanya untuk fungsi utilitas)
    user> I have the Echo
    I have the Echo
    ```
-Pada soal ini kami menggunakan fungsi dari readString yang membaca string dari input, kemudian diprint menggunakan printString, sehingga setiap karakter yang dimasukkan ke terminal akan dikeluarkan lagi
+
+   Pada soal ini kami menggunakan fungsi dari readString yang membaca string dari input, kemudian diprint menggunakan printString, sehingga setiap karakter yang dimasukkan ke terminal akan dikeluarkan lagi
+
 ```c
 readString(buf);
     strcpy(bufOriginal, buf);
@@ -254,7 +264,6 @@ readString(buf);
         printString("\n");
     }
 ```
-   
 
 2. gurt: yo
 
@@ -266,8 +275,10 @@ readString(buf);
    user> gurt
    yo
    ```
+
    konsepnya sama seperti echo, hanya saja ada sedikit speciality, dimana, ketika input 'yo' maka mengeluarkan 'gurt'
-   menggunakan function yang didefine di std_lib (strcmp(), mod()) 
+   menggunakan function yang didefine di std_lib (strcmp(), mod())
+
    ```c
    if (strcmp(cmd, "yogurt")) {
       int tick = getBiosTick();
@@ -286,7 +297,7 @@ readString(buf);
       printString("yo\n");
    ```
 
-4. Seorang main character memerlukan sebuah nama yang semua orang bisa ingat dengan baik. Buatlah sebuah command yang memungkinkan pengguna untuk mengubah nama user pada shell yang digunakan:
+3. Seorang main character memerlukan sebuah nama yang semua orang bisa ingat dengan baik. Buatlah sebuah command yang memungkinkan pengguna untuk mengubah nama user pada shell yang digunakan:
 
    - `user <username>` = mengubah username menjadi `<username>`
    - `user` = mengubah username menjadi default `user`
@@ -300,7 +311,9 @@ readString(buf);
    Username changed to user
    user>
    ```
+
    awalnya saat terminal dilaunch, maka user defaultnya adalah 'user' dan ketika readstring menerima input yang ada 'user' di dalamnya makan akan melakukan beberapa perubahan (det username nya 'user' ketika hanya ditemukan 'user' pada readstring, set username nya string input, ketika setelah input 'user' ada string lainnya)
+
    ```c
     else if (strcmp(cmd, "user")) {
       if (arg[0][0] == '\0') {
@@ -316,10 +329,8 @@ readString(buf);
       }
     }
    ```
-   
-   
 
-6. Tiga negara besar dari Eorzean Alliance butuh bantuan anda untuk ikut serta dalam "Grand Company" mereka sehingga anda bisa mengubah warna terminal ajaib anda sesuai warna utama dari company mereka:
+4. Tiga negara besar dari Eorzean Alliance butuh bantuan anda untuk ikut serta dalam "Grand Company" mereka sehingga anda bisa mengubah warna terminal ajaib anda sesuai warna utama dari company mereka:
 
    - `grandcompany maelstrom` = clear terminal, ubah semua teks berikutnya jadi merah
    - `grandcompany twinadder` = clear terminal, ubah semua teks berikutnya jadi kuning
@@ -342,9 +353,11 @@ readString(buf);
    gurt@Storm> clear
    -- terminal clear menjadi warna putih --
    ```
+
    di sini, konsep 'mengubah username nya mirip dengan sebelumya, hanya saja ada tambahan default color nya menyesuaikan grandcompany apa
    ketika terminal menerima input yang ada 'grandcompany' maka akan clearscreen(), lalu menambahkan komponen nama dan warna tergantung dari grandcompany apa,berkaitan dengan perubahan variabel global untuk perubahan nama, dan penambahan @[string] nya dengan strcpy()
-   dan di sini hanya 
+   dan di sini hanya
+
    ```c
    } else if (strcmp(cmd, "grandcompany")) {
       if (strcmp(arg[0], "maelstrom")) {
@@ -366,10 +379,9 @@ readString(buf);
         printString("Invalid Grand Company!\n");
       }
     }
-   ``` 
-   
+   ```
 
-8. Sebagai pahlawan terkenal di antara ketiga negara besar Eorzean Alliance, salah satu supplier senjata terbesar di seluruh Eorzea bernama "Rowena's House of Splendors" tiba-tiba memerlukan bantuan anda untuk membuat sebuah sistem kalkulator sederhana melalui command karena pemimpin mereka tertidur setelah mengurus semua orang di dalam Eorzea:
+5. Sebagai pahlawan terkenal di antara ketiga negara besar Eorzean Alliance, salah satu supplier senjata terbesar di seluruh Eorzea bernama "Rowena's House of Splendors" tiba-tiba memerlukan bantuan anda untuk membuat sebuah sistem kalkulator sederhana melalui command karena pemimpin mereka tertidur setelah mengurus semua orang di dalam Eorzea:
 
    - `add <x> <y>` = x + y
    - `sub <x> <y>` = x - y
@@ -388,7 +400,9 @@ readString(buf);
    user> div -6 -2
    3
    ```
+
    untuk bagian ini hanya melakukan readstring, dibandingkan menggunakan strcmp, atoi untuk memparsing input setelahnya kedalam sebuah variabel, melakukan operasi dengan itoa, dan mengeluarkannya sebagai res, lalu diprint
+
    ```c
    } else if (strcmp(cmd, "add")) {
         if (arg[0][0] == '\0' || arg[1][0] == '\0') {
@@ -437,27 +451,29 @@ readString(buf);
     }
    ```
 
-10. me: yogurt
+6. me: yogurt
 
-   gurt:
+gurt:
 
-   - `yo`
-   - `ts unami gng </3`
-   - `sygau`
+- `yo`
+- `ts unami gng </3`
+- `sygau`
 
-   pilih secara _random_
+pilih secara _random_
 
-   Ilustrasi:
+Ilustrasi:
 
-   ```
-   user> yogurt
-   gurt> yo
-   user> yogurt
-   gurt> ts unami gng </3
-   user> yogurt
-   gurt> sygau
-   ```
+```
+user> yogurt
+gurt> yo
+user> yogurt
+gurt> ts unami gng </3
+user> yogurt
+gurt> sygau
+```
+
 di soal ini untuk fungsi random, kami menggunakan getBiosTick(fungsi waktu) dan di modulo agar hasilnya konstan (range nya)
+
 ```c
 if (strcmp(cmd, "yogurt")) {
       int tick = getBiosTick();
@@ -479,7 +495,7 @@ if (strcmp(cmd, "yogurt")) {
     - stdlib: ngerun stdlib
     - shell: ngerun shell
     - kernel: ngerun kernel asm dan kernel.c
-    - link: 	ld86 -o bin/kernel.bin -d bin/kernel.o bin/kernel-asm.o bin/shell.o bin/std_lib.o (untuk menggabungkan file file hasil bcc dan nasm (berupa .biin atau .o agar menjadi 1 executable)
+    - link: ld86 -o bin/kernel.bin -d bin/kernel.o bin/kernel-asm.o bin/shell.o bin/std_lib.o (untuk menggabungkan file file hasil bcc dan nasm (berupa .biin atau .o agar menjadi 1 executable)
     - build: untuk ngerun sekaligus semuanya
     - clean: untuk membersihkan workspace (just some utilities)
     - run: untuk menjalankan build dan bochsrc agar sekali command saja
