@@ -4,8 +4,8 @@
 
 | Nama                          | NRP        |
 | ----------------------------- | ---------- |
-| Yuan Banny Albyan             | 5027241027 |
-| Ica Zika Hamizah              | 5027241058 |
+| Yuan Banny Albyan             | 5027241027 | (just give very little advice and make the readme)
+| Ica Zika Hamizah              | 5027241058 | (98% author of this repo)
 | Nafis Faqih Allmuzaky Maolidi | 5027241095 |
 
 ## Daftar Isi
