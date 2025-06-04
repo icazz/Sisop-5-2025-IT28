@@ -186,6 +186,8 @@ Pada suatu hari, anda merasa sangat lelah dari segala macam praktikum yang sudah
 
 [Akses Video dalam Assets](./assets/demo_IT28.mp4)
 
+https://github.com/user-attachments/assets/6d60d30d-1cb9-4ef0-ae55-b92416398f74
+
 ## Laporan
 
 Pada suatu hari, anda merasa sangat lelah dari segala macam praktikum yang sudah ada, sehingga anda berencana untuk tidur yang nyenyak di sebuah jam 3:34AM yang cerah. Tetapi, anda terbangun di dalam dunia berbeda yang bernama "Eorzea". Ada sesuatu yang mengganggu pikiran anda sehingga anda diharuskan membuat sebuah operating system bernama "EorzeOS" untuk mendampingi diri anda dalam dunia ini.
