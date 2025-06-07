@@ -25,7 +25,7 @@ void printString(char *str)
 
 void readString(char *buf)
 {
-  int i = 0;
+    int i = 0;
     char c;
 
     while (1) {
@@ -38,7 +38,10 @@ void readString(char *buf)
         } else if (c == 0x08) { // BACKSPACE
             if (i > 0) {
                 i--;
-                printString("\b \b");
+                // Gerak mundur kursor 1 kolom
+                interrupt(0x10, 0x0E08, 0, 0, 0); // tampilkan backspace
+                interrupt(0x10, 0x0E20, current_color, 0, 0); // tampilkan spasi di posisi sekarang
+                interrupt(0x10, 0x0E08, 0, 0, 0); // kembali lagi 1 posisi
             }
         } else {
             buf[i++] = c;
