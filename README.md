@@ -3,9 +3,9 @@
 ## Kelompok
 
 | Nama                          | NRP        |
-| ----------------------------- | ---------- |
-| Yuan Banny Albyan             | 5027241027 | (just give very little advice and make the readme)
-| Ica Zika Hamizah              | 5027241058 | (98% author of this repo)
+| ----------------------------- | ---------- | -------------------------------------------------- |
+| Yuan Banny Albyan             | 5027241027 | (just give very little advice and make the readme) |
+| Ica Zika Hamizah              | 5027241058 | (98% author of this repo)                          |
 | Nafis Faqih Allmuzaky Maolidi | 5027241095 |
 
 ## Daftar Isi
@@ -19,6 +19,7 @@
   - [Makefile](#makefile)
   - [Video Demonstrasi](#video-demonstrasi)
 - [Laporan](#laporan)
+- [Revisi Kecil](#Revisi-Kecil)
 
 ## Soal
 
@@ -501,3 +502,69 @@ if (strcmp(cmd, "yogurt")) {
     - build: untuk ngerun sekaligus semuanya
     - clean: untuk membersihkan workspace (just some utilities)
     - run: untuk menjalankan build dan bochsrc agar sekali command saja
+
+## Revisi Kecil
+
+Revisi untuk fungsi `readString` pada `kernel.c`. Karena sebelumnya jika di backspace akan keluar seperti kotak-kotak, bisa dilihat pada gambar berikut.
+
+![backspace error](assets/backspace.png)
+
+fungsi `readString` sebelum direvisi:
+```
+void readString(char *buf)
+{
+  int i = 0;
+    char c;
+
+    while (1) {
+        c = interrupt(0x16, 0, 0, 0, 0); // baca keyboard
+
+        if (c == 0x0D) { // ENTER
+            buf[i] = '\0';
+            printString("\n");
+            break;
+        } else if (c == 0x08) { // BACKSPACE
+            if (i > 0) {
+                i--;
+                printString("\b \b");
+            }
+        } else {
+            buf[i++] = c;
+            interrupt(0x10, 0x0900 + c, current_color, 0x0001, 0); // tampilkan char
+            interrupt(0x10, 0x0E00 + c, 0, 0, 0);
+        }
+    }
+}
+```
+
+fungsi `readString` setelah direvisi:
+
+```
+void readString(char *buf)
+{
+    int i = 0;
+    char c;
+
+    while (1) {
+        c = interrupt(0x16, 0, 0, 0, 0); // baca keyboard
+
+        if (c == 0x0D) { // ENTER
+            buf[i] = '\0';
+            printString("\n");
+            break;
+        } else if (c == 0x08) { // BACKSPACE
+            if (i > 0) {
+                i--;
+                // Gerak mundur kursor 1 kolom
+                interrupt(0x10, 0x0E08, 0, 0, 0); // tampilkan backspace
+                interrupt(0x10, 0x0E20, current_color, 0, 0); // tampilkan spasi di posisi sekarang
+                interrupt(0x10, 0x0E08, 0, 0, 0); // kembali lagi 1 posisi
+            }
+        } else {
+            buf[i++] = c;
+            interrupt(0x10, 0x0900 + c, current_color, 0x0001, 0); // tampilkan char
+            interrupt(0x10, 0x0E00 + c, 0, 0, 0);
+        }
+    }
+}
+```
